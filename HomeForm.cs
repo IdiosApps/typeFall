@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
@@ -28,6 +29,23 @@ namespace typeFall
         {
             setRandomText();
             updatePositions();
+
+            if (Controls.OfType<Button>().Count() < 3)
+            {
+                var newButton = new Button();
+                var x = (int) (Width * getRandomProbability());
+                newButton.Location = new Point(x,0);
+
+                newButton.Width = (int) (Width * getRandomProbability(20, 30));
+                newButton.Height = (int) (Height * getRandomProbability(5, 10));
+
+                Controls.Add(newButton);
+            }
+        }
+
+        private float getRandomProbability(int start = 0, int end = 100)
+        {
+            return random.Next(start, end) / 100f;
         }
 
         private void updatePositions()
@@ -42,7 +60,7 @@ namespace typeFall
 
         private void setRandomText()
         {
-            foreach (var button in this.Controls.OfType<Button>())
+            foreach (var button in Controls.OfType<Button>())
             {
                 if (button.Text.Any()) 
                     continue;
