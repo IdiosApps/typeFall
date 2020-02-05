@@ -1,0 +1,9 @@
+C:\Users\middo\source\repos\typeFall\bin\Debug\typeFall.exe.config
+C:\Users\middo\source\repos\typeFall\bin\Debug\typeFall.exe
+C:\Users\middo\source\repos\typeFall\bin\Debug\typeFall.pdb
+C:\Users\middo\source\repos\typeFall\obj\Debug\typeFall.csprojAssemblyReference.cache
+C:\Users\middo\source\repos\typeFall\obj\Debug\typeFall.HomeForm.resources
+C:\Users\middo\source\repos\typeFall\obj\Debug\typeFall.Properties.Resources.resources
+C:\Users\middo\source\repos\typeFall\obj\Debug\typeFall.csproj.GenerateResource.cache
+C:\Users\middo\source\repos\typeFall\obj\Debug\typeFall.exe
+C:\Users\middo\source\repos\typeFall\obj\Debug\typeFall.pdb
