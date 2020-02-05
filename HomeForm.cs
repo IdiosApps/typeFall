@@ -8,6 +8,8 @@ namespace typeFall
     public partial class HomeForm : Form
     {
         private const int gravity = 10;
+
+        private Random random = new Random();
         public HomeForm()
         {
             InitializeComponent();
@@ -24,6 +26,7 @@ namespace typeFall
 
         private void TimerTickProcessor(object sender, EventArgs e)
         {
+            setRandomText();
             updatePositions();
         }
 
@@ -37,5 +40,16 @@ namespace typeFall
             }
         }
 
+        private void setRandomText()
+        {
+            foreach (var button in this.Controls.OfType<Button>())
+            {
+                if (button.Text.Any()) 
+                    continue;
+
+                var number = random.Next(0, 256); // 0-255, 00-FF
+                button.Text = number.ToString();
+            }
+        }
     }
 }
