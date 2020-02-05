@@ -10,7 +10,7 @@ namespace typeFall
     {
         private const int gravity = 2;
 
-        private Random random = new Random();
+        private readonly Random random = new Random();
         public HomeForm()
         {
             InitializeComponent();
@@ -27,7 +27,6 @@ namespace typeFall
 
         private void TimerTickProcessor(object sender, EventArgs e)
         {
-            setRandomText();
             updatePositions();
 
             if (Controls.OfType<Button>().Count() < 3)
@@ -38,6 +37,8 @@ namespace typeFall
 
                 newButton.Width = (int) (Width * getRandomProbability(20, 30));
                 newButton.Height = (int) (Height * getRandomProbability(5, 10));
+
+                setRandomText(newButton);
 
                 Controls.Add(newButton);
             }
@@ -58,16 +59,10 @@ namespace typeFall
             }
         }
 
-        private void setRandomText()
+        private void setRandomText(Button button)
         {
-            foreach (var button in Controls.OfType<Button>())
-            {
-                if (button.Text.Any()) 
-                    continue;
-
-                var number = random.Next(0, 256); // 0-255, 00-FF
-                button.Text = number.ToString();
-            }
+            var number = random.Next(0, 256); // 0-255, 00-FF
+            button.Text = number.ToString();
         }
     }
 }
