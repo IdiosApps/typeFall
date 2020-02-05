@@ -7,7 +7,7 @@ namespace typeFall
 {
     public partial class HomeForm : Form
     {
-        private const int gravity = 10;
+        private const int gravity = 2;
 
         private Random random = new Random();
         public HomeForm()
@@ -17,7 +17,7 @@ namespace typeFall
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            const float framerate = 12;
+            const float framerate = 60;
             var timer = new Timer();
             timer.Tick += TimerTickProcessor;
             timer.Interval = (int) (1000f / framerate);
