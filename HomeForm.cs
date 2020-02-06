@@ -25,8 +25,10 @@ namespace typeFall
             {1, 15},
             {2, 40},
             {3, 80},
-            {4, 150},
-            {5, 255}
+            {4, 120},
+            {5, 160},
+            {6, 200},
+            {7, 255}
         };
 
         public HomeForm()
@@ -74,7 +76,7 @@ namespace typeFall
                 return;
 
             difficultyLevel++;
-            killsPerLevel++; // more practice at harder levels
+            killsPerLevel += difficultyLevel + 2; // more practice at harder levels
             BackColor = Color.FromArgb(random.Next(0, 255), random.Next(0, 255), random.Next(0, 255));
             killsInDifficulty = 0;
         }
