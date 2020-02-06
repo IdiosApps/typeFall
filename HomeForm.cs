@@ -15,6 +15,8 @@ namespace typeFall
         private Timer timer = new Timer();
         private int difficultyLevel = 1;
         private int totalKills = 0;
+        private int framesToNextBlock = 0;
+        private int maxBlocksOnScreen = 3;
         public HomeForm()
         {
             InitializeComponent();
@@ -31,26 +33,40 @@ namespace typeFall
         {
             updatePositions();
 
-            if (Controls.OfType<Button>().Count() < 3)
+            if (canCreateBlock() && framesToNextBlock <= 0)
             {
-                var newButton = new Button();
-
-                var widthPercent = getRandomProbability(20, 30);
-                newButton.Width = (int)(Width * widthPercent);
-                newButton.Height = (int)(Height * getRandomProbability(5, 10));
-
-                var x = getConstrainedX(widthPercent);
-                newButton.Location = new Point(x,0);
-
-                setRandomText(newButton);
-
-                Controls.Add(newButton);
+                makeNewBlock();
+                var next = (int) framerate * random.Next(1, 3);
+                framesToNextBlock += next;
             }
 
             if (playerIsDead())
             {
                 timer.Stop();
             }
+
+            framesToNextBlock--;
+        }
+
+        private void makeNewBlock()
+        {
+            var newButton = new Button();
+
+            var widthPercent = getRandomProbability(20, 30);
+            newButton.Width = (int)(Width * widthPercent);
+            newButton.Height = (int)(Height * getRandomProbability(5, 10));
+
+            var x = getConstrainedX(widthPercent);
+            newButton.Location = new Point(x, 0);
+
+            setRandomText(newButton);
+
+            Controls.Add(newButton);
+        }
+
+        private bool canCreateBlock()
+        {
+            return Controls.OfType<Button>().Count() < maxBlocksOnScreen;
         }
 
         private int getConstrainedX(float widthPercent)
