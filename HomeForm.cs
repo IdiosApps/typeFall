@@ -47,7 +47,7 @@ namespace typeFall
                 Controls.Add(newButton);
             }
 
-            if (checkIfDead())
+            if (playerIsDead())
             {
                 timer.Stop();
             }
@@ -60,11 +60,11 @@ namespace typeFall
             return (int) Math.Min(maxX, randomX); // constrain x so that button is fully on-screen
         }
 
-        private bool checkIfDead()
+        private bool playerIsDead()
         {
             var bottomCount = Controls
                 .OfType<Button>()
-                .Count(button => (button.Location.Y + button.Height) < 0);
+                .Count(button => (button.Location.Y + button.Height) > ClientRectangle.Height); // ClientRectangle accounts for app bar height
 
             return bottomCount > 0;
         }
