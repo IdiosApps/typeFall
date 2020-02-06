@@ -77,7 +77,7 @@ namespace typeFall
 
             difficultyLevel++;
             killsPerLevel += difficultyLevel + 2; // more practice at harder levels
-            BackColor = Color.FromArgb(random.Next(0, 255), random.Next(0, 255), random.Next(0, 255));
+            BackColor = getRandomColor();
             killsInDifficulty = 0;
         }
 
@@ -108,7 +108,7 @@ namespace typeFall
             string randomText = getRandomText();
             newButton.Text = randomText;
 
-            newButton.BackColor = Color.FromArgb(96, 147, 172);
+            newButton.BackColor = getRandomColor(50); // don't let the background be too dark ('.' dark text)
             newButton.FlatStyle = FlatStyle.Flat;
 
             Font font = new Font("MS Sans Serif", 40, FontStyle.Bold);
@@ -146,6 +146,11 @@ namespace typeFall
         private float getRandomProbability(int start = 0, int end = 100)
         {
             return random.Next(start, end) / 100f;
+        }
+        
+        private Color getRandomColor(int min = 0)
+        {
+            return Color.FromArgb(random.Next(min, 255), random.Next(min, 255), random.Next(min, 255));
         }
 
         private void updatePositions()
