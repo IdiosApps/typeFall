@@ -9,18 +9,17 @@ namespace typeFall
 {
     public partial class HomeForm : Form
     {
-        private const int gravity = 2;
         private const int gravity = 1;
-        const float framerate = 60;
+        private const float framerate = 60;
         private readonly Random random = new Random();
-        private Timer timer = new Timer();
-        private int totalKills = 0;
-        private int framesToNextBlock = 0;
+        private readonly Timer timer = new Timer();
+        private int totalKills;
+        private int framesToNextBlock;
         private int maxBlocksOnScreen = 3;
-        private Dictionary<String, Button> buttonMap = new Dictionary<string, Button>();
+        private readonly Dictionary<string, Button> buttonMap = new Dictionary<string, Button>();
 
         private int difficultyLevel = 1;
-        private Dictionary<int, int> difficultyLevels = new Dictionary<int, int>
+        private readonly Dictionary<int, int> difficultyLevels = new Dictionary<int, int>
         {
             {1, 15},
             {2, 40},
@@ -152,8 +151,13 @@ namespace typeFall
 
         private string getRandomText()
         {
-            var maxRandomValue = difficultyLevels[difficultyLevel];
-            var number = random.Next(0, maxRandomValue); // 0-255, 00-FF
+            var difficultyMaxRandom = difficultyLevels[difficultyLevel];
+            var number = random.Next(0, difficultyMaxRandom); // 0-255, 00-FF;
+            while (buttonMap.ContainsKey(number.ToString("X")))
+            {
+                number = random.Next(0, difficultyMaxRandom);
+            }
+
             return number.ToString();
         }
     }
