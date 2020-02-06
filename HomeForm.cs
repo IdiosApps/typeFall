@@ -10,13 +10,24 @@ namespace typeFall
     public partial class HomeForm : Form
     {
         private const int gravity = 2;
+        private const int gravity = 1;
         const float framerate = 60;
         private readonly Random random = new Random();
         private Timer timer = new Timer();
-        private int difficultyLevel = 1;
         private int totalKills = 0;
         private int framesToNextBlock = 0;
         private int maxBlocksOnScreen = 3;
+        private Dictionary<String, Button> buttonMap = new Dictionary<string, Button>();
+
+        private int difficultyLevel = 1;
+        private Dictionary<int, int> difficultyLevels = new Dictionary<int, int>
+        {
+            {1, 15},
+            {2, 40},
+            {3, 80},
+            {4, 150},
+            {5, 255}
+        };
         public HomeForm()
         {
             InitializeComponent();
@@ -36,6 +47,9 @@ namespace typeFall
 
         private void update(object sender, EventArgs e)
         {
+            checkTextForMatch();
+            tryIncreaseDifficulty();
+
             updatePositions();
 
             if (canCreateBlock() && framesToNextBlock <= 0)
@@ -53,24 +67,49 @@ namespace typeFall
             framesToNextBlock--;
         }
 
+        private void tryIncreaseDifficulty()
+        {
+            if (totalKills % 5 == 0 && totalKills > 0)
+                difficultyLevel++;
+        }
+
+        private void checkTextForMatch()
+        {
+            var text = textBox.Text;
+            if (!buttonMap.ContainsKey(text))
+                return;
+
+            var button = buttonMap[text];
+            Controls.Remove(button);
+            buttonMap.Remove(text);
+            textBox.Text = "";
+            totalKills++;
+        }
+
         private void makeNewBlock()
         {
             var newButton = new Button();
 
             var widthPercent = getRandomProbability(20, 30);
             newButton.Width = (int)(Width * widthPercent);
-            newButton.Height = (int)(Height * getRandomProbability(5, 10));
+            newButton.Height = (int)(Height * getRandomProbability(10, 15));
 
             var x = getConstrainedX(widthPercent);
             newButton.Location = new Point(x, 0);
 
-            setRandomText(newButton);
+            string randomText = getRandomText();
+            newButton.Text = randomText;
 
             newButton.BackColor = Color.FromArgb(96, 147, 172);
             newButton.FlatStyle = FlatStyle.Flat;
 
-            Font font = new Font("MS Sans Serif", 32, FontStyle.Bold);
+            Font font = new Font("MS Sans Serif", 40, FontStyle.Bold);
             newButton.Font = font;
+
+            // Store the hex of the block and the block in a map, so we can quickly find if the entered text has a match
+            var randomInt = int.Parse(randomText);
+            string hexString = randomInt.ToString("X2");
+            buttonMap.Add(hexString, newButton);
 
             Controls.Add(newButton);
         }
@@ -111,10 +150,11 @@ namespace typeFall
             }
         }
 
-        private void setRandomText(Button button)
+        private string getRandomText()
         {
-            var number = random.Next(0, 256); // 0-255, 00-FF
-            button.Text = number.ToString();
+            var maxRandomValue = difficultyLevels[difficultyLevel];
+            var number = random.Next(0, maxRandomValue); // 0-255, 00-FF
+            return number.ToString();
         }
     }
 }
