@@ -24,6 +24,11 @@ namespace typeFall
 
         private void HomeFormLoad(object sender, EventArgs e)
         {
+            textBox.BackColor = Color.FromArgb(247, 183, 99);
+            textBox.TextAlign = HorizontalAlignment.Center;
+
+            ActiveControl = textBox;
+
             timer.Tick += update;
             timer.Interval = (int) (1000f / framerate);
             timer.Start();
@@ -60,6 +65,12 @@ namespace typeFall
             newButton.Location = new Point(x, 0);
 
             setRandomText(newButton);
+
+            newButton.BackColor = Color.FromArgb(96, 147, 172);
+            newButton.FlatStyle = FlatStyle.Flat;
+
+            Font font = new Font("MS Sans Serif", 32, FontStyle.Bold);
+            newButton.Font = font;
 
             Controls.Add(newButton);
         }
