@@ -13,7 +13,8 @@ namespace typeFall
         private const float framerate = 60;
         private readonly Random random = new Random();
         private readonly Timer timer = new Timer();
-        private int totalKills;
+        private int killsInDifficulty;
+        private int killsPerLevel = 5;
         private int framesToNextBlock;
         private int maxBlocksOnScreen = 3;
         private readonly Dictionary<string, Button> buttonMap = new Dictionary<string, Button>();
@@ -27,6 +28,7 @@ namespace typeFall
             {4, 150},
             {5, 255}
         };
+
         public HomeForm()
         {
             InitializeComponent();
@@ -68,8 +70,13 @@ namespace typeFall
 
         private void tryIncreaseDifficulty()
         {
-            if (totalKills % 5 == 0 && totalKills > 0)
-                difficultyLevel++;
+            if (killsInDifficulty < 5) 
+                return;
+
+            difficultyLevel++;
+            killsPerLevel++; // more practice at harder levels
+            BackColor = Color.FromArgb(random.Next(0, 255), random.Next(0, 255), random.Next(0, 255));
+            killsInDifficulty = 0;
         }
 
         private void checkTextForMatch()
@@ -82,7 +89,7 @@ namespace typeFall
             Controls.Remove(button);
             buttonMap.Remove(text);
             textBox.Text = "";
-            totalKills++;
+            killsInDifficulty++;
         }
 
         private void makeNewBlock()
