@@ -57,7 +57,7 @@
             this.Controls.Add(this.button1);
             this.Name = "HomeForm";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.HomeFormLoad);
             this.ResumeLayout(false);
 
         }
