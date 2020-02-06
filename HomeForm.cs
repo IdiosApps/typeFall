@@ -167,7 +167,7 @@ namespace typeFall
         {
             var difficultyMaxRandom = difficultyLevels[difficultyLevel];
             var number = random.Next(0, difficultyMaxRandom); // 0-255, 00-FF;
-            while (buttonMap.ContainsKey(number.ToString("X")))
+            while (buttonMap.ContainsKey(number.ToString("X2")))
             {
                 number = random.Next(0, difficultyMaxRandom);
             }
