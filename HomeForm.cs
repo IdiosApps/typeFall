@@ -40,8 +40,14 @@ namespace typeFall
 
         private void HomeFormLoad(object sender, EventArgs e)
         {
+            Height = Screen.PrimaryScreen.Bounds.Height;
+            Location = new Point(0, 0);
+
             textBox.BackColor = Color.FromArgb(247, 183, 99);
             textBox.TextAlign = HorizontalAlignment.Center;
+
+            timer.Tick += update;
+            timer.Interval = (int)(1000f / framerate);
 
             KeyPreview = true;
             showTutorial();
@@ -80,8 +86,6 @@ namespace typeFall
             var x = (Width / 2) - (textBox.Width / 2);
             textBox.Location = new Point(x, Height - (Height / 10));
 
-            timer.Tick += update;
-            timer.Interval = (int)(1000f / framerate);
             timer.Start();
             ActiveControl = textBox;
         }
@@ -96,6 +100,8 @@ namespace typeFall
             killsInDifficulty = 0;
             difficultyLevel = 1;
             timer.Stop();
+
+            framesToNextBlock = (int) (framerate * 2);
 
             playerIsDead = false;
             scoreText.Visible = false;
