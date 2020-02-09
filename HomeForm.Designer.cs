@@ -30,6 +30,7 @@
         {
             this.textBox = new System.Windows.Forms.TextBox();
             this.tutorialText = new System.Windows.Forms.Label();
+            this.scoreText = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox
@@ -60,12 +61,25 @@
             this.tutorialText.TabIndex = 1;
             this.tutorialText.Text = "tutorialText";
             // 
+            // scoreText
+            // 
+            this.scoreText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.scoreText.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scoreText.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.scoreText.Location = new System.Drawing.Point(12, 825);
+            this.scoreText.Name = "scoreText";
+            this.scoreText.Size = new System.Drawing.Size(143, 42);
+            this.scoreText.TabIndex = 2;
+            this.scoreText.Text = "0";
+            this.scoreText.Visible = false;
+            // 
             // HomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(856, 899);
+            this.Controls.Add(this.scoreText);
             this.Controls.Add(this.tutorialText);
             this.Controls.Add(this.textBox);
             this.Name = "HomeForm";
@@ -81,6 +95,7 @@
 
         private System.Windows.Forms.TextBox textBox;
         private System.Windows.Forms.Label tutorialText;
+        private System.Windows.Forms.Label scoreText;
     }
 }
 

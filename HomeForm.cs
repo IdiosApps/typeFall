@@ -19,6 +19,7 @@ namespace typeFall
         private int maxBlocksOnScreen = 3;
         private readonly Dictionary<string, Button> buttonMap = new Dictionary<string, Button>();
         private bool tutorialIsVisible = true;
+        private int totalKills;
 
         private int difficultyLevel = 1;
         private readonly Dictionary<int, int> difficultyLevels = new Dictionary<int, int>
@@ -70,6 +71,7 @@ namespace typeFall
                 return;
             
             tutorialText.Visible = false;
+            scoreText.Visible = true;
 
             timer.Tick += update;
             timer.Interval = (int)(1000f / framerate);
@@ -121,6 +123,8 @@ namespace typeFall
             buttonMap.Remove(text);
             textBox.Text = "";
             killsInDifficulty++;
+            totalKills++;
+            scoreText.Text = totalKills.ToString();
         }
 
         private void makeNewBlock()
