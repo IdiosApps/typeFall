@@ -18,6 +18,7 @@ namespace typeFall
         private int framesToNextBlock;
         private int maxBlocksOnScreen = 3;
         private readonly Dictionary<string, Button> buttonMap = new Dictionary<string, Button>();
+        private bool tutorialIsVisible = true;
 
         private int difficultyLevel = 1;
         private readonly Dictionary<int, int> difficultyLevels = new Dictionary<int, int>
@@ -41,11 +42,39 @@ namespace typeFall
             textBox.BackColor = Color.FromArgb(247, 183, 99);
             textBox.TextAlign = HorizontalAlignment.Center;
 
-            ActiveControl = textBox;
+            showTutorial();
+        }
+
+        private void showTutorial()
+        {
+            var tutorialMessage = "Convert decimal to hexadecimal!\n\n" +
+                               "Decimal | Hexadecimal\n" +
+                               "         0   |   00\n" +
+                               "         7   |   07\n" +
+                               "         10  |   0A\n" +
+                               "         15  |   0F\n" +
+                               "         16  |   10\n" +
+                               "         33  |   21\n" +
+                               "         50  |   32\n" +
+                               "         64  |   40\n" +
+                               "         87  |   57\n\n" +
+                               "80 = 16 x 5 ... 87 - 80 = 7 ... so 57!\n\n" +
+                               "Press any key to begin";
+
+            tutorialText.Text = tutorialMessage;
+        }
+
+        private void HomeForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!tutorialIsVisible) 
+                return;
+            
+            tutorialText.Visible = false;
 
             timer.Tick += update;
-            timer.Interval = (int) (1000f / framerate);
+            timer.Interval = (int)(1000f / framerate);
             timer.Start();
+            ActiveControl = textBox;
         }
 
         private void update(object sender, EventArgs e)

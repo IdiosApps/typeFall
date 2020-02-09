@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.textBox = new System.Windows.Forms.TextBox();
+            this.tutorialText = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox
@@ -48,16 +49,29 @@
             this.textBox.Text = "...";
             this.textBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // tutorialText
+            // 
+            this.tutorialText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.tutorialText.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tutorialText.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.tutorialText.Location = new System.Drawing.Point(67, 102);
+            this.tutorialText.Name = "tutorialText";
+            this.tutorialText.Size = new System.Drawing.Size(709, 675);
+            this.tutorialText.TabIndex = 1;
+            this.tutorialText.Text = "tutorialText";
+            // 
             // HomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(856, 899);
+            this.Controls.Add(this.tutorialText);
             this.Controls.Add(this.textBox);
             this.Name = "HomeForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.HomeFormLoad);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.HomeForm_KeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -66,6 +80,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBox;
+        private System.Windows.Forms.Label tutorialText;
     }
 }
 
