@@ -18,8 +18,8 @@ namespace typeFall
         private int framesToNextBlock;
         private int maxBlocksOnScreen = 3;
         private readonly Dictionary<string, Button> buttonMap = new Dictionary<string, Button>();
-        private bool tutorialIsVisible = true;
         private int totalKills;
+        private bool playerIsDead;
 
         private int difficultyLevel = 1;
         private readonly Dictionary<int, int> difficultyLevels = new Dictionary<int, int>
@@ -43,6 +43,7 @@ namespace typeFall
             textBox.BackColor = Color.FromArgb(247, 183, 99);
             textBox.TextAlign = HorizontalAlignment.Center;
 
+            KeyPreview = true;
             showTutorial();
         }
 
@@ -63,27 +64,68 @@ namespace typeFall
                                "Press any key to begin";
 
             tutorialText.Text = tutorialMessage;
+            tutorialText.Visible = true;
         }
 
         private void HomeForm_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!tutorialIsVisible) 
+            if (!tutorialText.Visible) 
                 return;
             
             tutorialText.Visible = false;
             scoreText.Visible = true;
+            highscore.Visible = true;
+
+            textBox.Visible = true;
+            var x = (Width / 2) - (textBox.Width / 2);
+            textBox.Location = new Point(x, Height - (Height / 10));
 
             timer.Tick += update;
             timer.Interval = (int)(1000f / framerate);
             timer.Start();
             ActiveControl = textBox;
         }
+        
+        private void restartGame()
+        {
+            highscore.Text = highscore.Text.Any() ? Math.Max(int.Parse(highscore.Text), totalKills).ToString() : totalKills.ToString();
+
+            totalKills = 0;
+            scoreText.Text = totalKills.ToString();
+
+            killsInDifficulty = 0;
+            difficultyLevel = 1;
+            timer.Stop();
+
+            playerIsDead = false;
+            scoreText.Visible = false;
+            textBox.Visible = false;
+            showTutorial();
+        }
 
         private void update(object sender, EventArgs e)
         {
             checkTextForMatch();
-            tryIncreaseDifficulty();
 
+            if (playerHasDied())
+                playerIsDead = true;
+
+            if (playerIsDead)
+            {
+                if (getBlockCount() != 0) // player gets time to remove difficult remaining blocks  (must need more thought as they killed the player)
+                {
+                    var x = (Width / 2) - (textBox.Width / 2);
+                    textBox.Location = new Point(x, Height / 10);
+                    return;
+                } 
+
+
+                // all blocks are removed, can play again
+                restartGame();
+                return;
+            }
+
+            tryIncreaseDifficulty();
             updatePositions();
 
             if (canCreateBlock() && framesToNextBlock <= 0)
@@ -91,11 +133,6 @@ namespace typeFall
                 makeNewBlock();
                 var next = (int) framerate * random.Next(1, 3);
                 framesToNextBlock += next;
-            }
-
-            if (playerIsDead())
-            {
-                timer.Stop();
             }
 
             framesToNextBlock--;
@@ -157,7 +194,12 @@ namespace typeFall
 
         private bool canCreateBlock()
         {
-            return Controls.OfType<Button>().Count() < maxBlocksOnScreen;
+            return getBlockCount() < maxBlocksOnScreen;
+        }
+
+        private int getBlockCount()
+        {
+            return Controls.OfType<Button>().Count() ;
         }
 
         private int getConstrainedX(float widthPercent)
@@ -167,7 +209,7 @@ namespace typeFall
             return (int) Math.Min(maxX, randomX); // constrain x so that button is fully on-screen
         }
 
-        private bool playerIsDead()
+        private bool playerHasDied()
         {
             var bottomCount = Controls
                 .OfType<Button>()

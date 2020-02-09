@@ -31,6 +31,7 @@
             this.textBox = new System.Windows.Forms.TextBox();
             this.tutorialText = new System.Windows.Forms.Label();
             this.scoreText = new System.Windows.Forms.Label();
+            this.highscore = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox
@@ -63,15 +64,30 @@
             // 
             // scoreText
             // 
+            this.scoreText.AutoSize = true;
             this.scoreText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.scoreText.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoreText.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.scoreText.Location = new System.Drawing.Point(12, 825);
             this.scoreText.Name = "scoreText";
-            this.scoreText.Size = new System.Drawing.Size(143, 42);
+            this.scoreText.Size = new System.Drawing.Size(46, 51);
             this.scoreText.TabIndex = 2;
             this.scoreText.Text = "0";
+            this.scoreText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.scoreText.Visible = false;
+            // 
+            // highscore
+            // 
+            this.highscore.AutoSize = true;
+            this.highscore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.highscore.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.highscore.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.highscore.Location = new System.Drawing.Point(128, 825);
+            this.highscore.Name = "highscore";
+            this.highscore.Size = new System.Drawing.Size(0, 51);
+            this.highscore.TabIndex = 3;
+            this.highscore.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.highscore.Visible = false;
             // 
             // HomeForm
             // 
@@ -79,6 +95,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(856, 899);
+            this.Controls.Add(this.highscore);
             this.Controls.Add(this.scoreText);
             this.Controls.Add(this.tutorialText);
             this.Controls.Add(this.textBox);
@@ -96,6 +113,7 @@
         private System.Windows.Forms.TextBox textBox;
         private System.Windows.Forms.Label tutorialText;
         private System.Windows.Forms.Label scoreText;
+        private System.Windows.Forms.Label highscore;
     }
 }
 
