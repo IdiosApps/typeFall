@@ -50,6 +50,7 @@
             this.textBox.TabStop = false;
             this.textBox.Text = "...";
             this.textBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // tutorialText
             // 

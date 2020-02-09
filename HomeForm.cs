@@ -249,5 +249,14 @@ namespace typeFall
 
             return number.ToString();
         }
+
+        // don't let non-alphanumeric characters jam up our textbox!
+        private void textBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            var c = e.KeyChar;
+            e.Handled = !(char.IsLetter(c) ||
+                          char.IsDigit(c) ||
+                          c == (char)Keys.Back);
+        }
     }
 }
